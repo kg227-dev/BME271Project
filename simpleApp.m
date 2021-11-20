@@ -1,7 +1,9 @@
-function simpleApp
-% SIMPLEAPP Interactively explore plotting functions
-%   Choose the function used to plot the sample data to see the
-%   differences between surface plots, mesh plots, and waterfall plots
+[sound,fs]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/Kush Gulati BME271 Lucid Dreams Marimba.mp3');
+
+function app
+% SIMPLEAPP Interactively explore plotting instruments
+
+
 
 % Create figure window
 fig = uifigure;
@@ -30,7 +32,7 @@ ax.Layout.Column = [1 2];
 
 % Configure UI component appearance
 lbl.Text = "Choose Plot Type:";
-dd.Items = ["Surf" "Mesh" "Waterfall"];
+dd.Items = ["Trumpet" "Piano" "Flute" "Violet"];
 dd.Value = "Surf";
 surf(ax,peaks);
 
@@ -42,11 +44,11 @@ end
 function changePlotType(src,event,ax)
 type = event.Value;
 switch type
-    case "Surf"
+    case "Trumpet"
         surf(ax,peaks);
-    case "Mesh"
+    case "Piano"
         mesh(ax,peaks);
-    case "Waterfall"
+    case "Flute"
         waterfall(ax,peaks);
 end
 end
