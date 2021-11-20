@@ -1,9 +1,7 @@
-[sound,fs]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/Kush Gulati BME271 Lucid Dreams Marimba.mp3');
 
 function app
 % SIMPLEAPP Interactively explore plotting instruments
-
-
+[Kushsound,fs]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/Kush Gulati BME271 Lucid Dreams Marimba.mp3');
 
 % Create figure window
 fig = uifigure;
@@ -31,9 +29,9 @@ ax.Layout.Row = 2;
 ax.Layout.Column = [1 2];
 
 % Configure UI component appearance
-lbl.Text = "Choose Plot Type:";
-dd.Items = ["Trumpet" "Piano" "Flute" "Violet"];
-dd.Value = "Surf";
+lbl.Text = "Choose Instrument:";
+dd.Items = ["Trumpet" "Piano" "Flute" "Violin"];
+dd.Value = "Trumpet";
 surf(ax,peaks);
 
 % Assign callback function to drop-down
@@ -52,3 +50,4 @@ switch type
         waterfall(ax,peaks);
 end
 end
+
