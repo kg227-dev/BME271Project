@@ -47,7 +47,7 @@ cbx.ButtonPushedFcn = {@playSound}
 end
 
 % Program app behavior
-function [type] = changeInstrument(src,event,ax)
+function [typechangeInstrument(src,event,ax)
 type = event.Value;
 switch type
     case "Trumpet"
@@ -81,7 +81,12 @@ switch type
         soundsc(violin, fs_violin);
 end
 end
+function [val] = getValue(src,event)
+    val = event.value
+end
+
 function playSound(src, event)
+
 [piano,fs_piano]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/piano-C4.wav');
 soundsc(piano, fs_piano);
 end
