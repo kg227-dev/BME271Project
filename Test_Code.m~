@@ -38,24 +38,23 @@ tpiano = [0:1/fs_piano:(length(piano)-1)/fs_piano];
 tflute = [0:1/fs_flute:(length(flute) - 1)/fs_flute];
 
 % Amplitudes of harmonics
-h1 = 1;
-h2 = 1;
-h3 = 1;
-h4 = 1;
-h5 = 1;
-h6 = 1;
-h7 = 1;
-h8 = 1;
+h1 = 0.01;
+h2 = 0.02;
+h3 = 0.04;
+h4 = 0.05;
+h5 = 0.03;
+h6 = 0.05;
+h7 = 0.03;
+h8 = 0;
 
 % f0 for C4
 f0 = 261.6;
 % Test sound
-test = h1 * cos(2*pi*f0*t) + h2 * cos(4*pi*f0*t) + h3 * cos(6*pi*f0*t) + ...
+test = h1 * cos(2*pi*f0*t) + h2 * cos(4*pi*f0*6) + h3 * cos(6*pi*f0*t) + ...
     h4 * cos(8*pi*f0*t) + h5 * cos(10*pi*f0*t) + h6 * cos(12*pi*f0*t) + ...
     h7 * cos(14*pi*f0*t) + h8 * cos(16*pi*f0*t);
 
-test_ft = fftshift(fft(test));
-ft = linspace(-fs/2, fs/2, length(test_ft));
+test_ft = fftshift(fft(tes
 
 % Play test sound with envelope
 %soundsc(test .* vq, fs)
@@ -68,7 +67,3 @@ xlim([0 3.2])
 
 figure(2)
 plot(transpose(ttrumpet), trumpet)
-
-figure(3)
-plot(ft, abs(test_ft))
-xlim([0 2200])
