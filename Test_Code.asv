@@ -36,7 +36,7 @@ y = [0 1 samp samp 0];
 xq = 0:dt:3.2;
 vq = interp1(x, y, xq);
 
-
+<<<<<<< HEAD
 %ttrumpet = [0:1/fs_trumpet:length(trumpet)/fs_trumpet];
 ttrumpet = (0:1/fs_trumpet:(length(trumpet)-1)/fs_trumpet);
 %tviolin = [0:1/fs_violin:length(violin)/fs_violin];
@@ -46,36 +46,29 @@ tpiano = (0:1/fs_piano:(length(piano)-1)/fs_piano);
 %tflute = [0:1/fs_flute:length(flute)/fs_flute];
 tflute = (0:1/fs_flute:(length(flute)-1)/fs_flute);
 
-
+=======
 ttrumpet = [0:1/fs_trumpet:(length(trumpet) - 1)/fs_trumpet];
 tviolin = [0:1/fs_violin:(length(violin) - 1)/fs_violin];
 tpiano = [0:1/fs_piano:(length(piano)-1)/fs_piano];
 tflute = [0:1/fs_flute:(length(flute) - 1)/fs_flute];
-
+>>>>>>> 41d9905362a088844fca671c3d901553e310acf0
 
 % Amplitudes of harmonics
-h1 = 1;
-h2 = 1;
-h3 = 1;
-h4 = 1;
-h5 = 1;
-h6 = 1;
-h7 = 1;
-h8 = 1;
+h1 = 0.01;
+h2 = 0.02;
+h3 = 0.04;
+h4 = 0.05;
+h5 = 0.03;
+h6 = 0.05;
+h7 = 0.03;
+h8 = 0;
 
 % f0 for C4
 f0 = 261.6;
 % Test sound
-test = h1 * cos(2*pi*f0*t) + h2 * cos(4*pi*f0*t) + h3 * cos(6*pi*f0*t) + ...
+test = h1 * cos(2*pi*f0*t) + h2 * cos(4*pi*f0*6) + h3 * cos(6*pi*f0*t) + ...
     h4 * cos(8*pi*f0*t) + h5 * cos(10*pi*f0*t) + h6 * cos(12*pi*f0*t) + ...
     h7 * cos(14*pi*f0*t) + h8 * cos(16*pi*f0*t);
-
-<<<<<<< HEAD
-test_ft = fftshift(fft(test));
-ft = linspace(-fs/2, fs/2, length(test_ft));
-=======
-
->>>>>>> aa448362a82b8d6e8f002df059f22ec1d1aa2afb
 
 % Play test sound with envelope
 %soundsc(test .* vq, fs)
@@ -87,15 +80,11 @@ subplot(2,2,2)
 plot(xq, vq)
 ylim([0 1.2])
 xlim([0 3.2])
-<<<<<<< HEAD
+
+subplot(2,2,3)
+plot(trumpet.*vq)
+
 
 figure(2)
 plot(transpose(ttrumpet), trumpet)
-
-figure(3)
-plot(ft, abs(test_ft))
-xlim([0 2200])
-=======
-subplot(2,2,3)
-plot(x,y)
->>>>>>> aa448362a82b8d6e8f002df059f22ec1d1aa2afb
+>>>>>>> 41d9905362a088844fca671c3d901553e310acf0
