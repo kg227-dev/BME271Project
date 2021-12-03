@@ -58,7 +58,6 @@ switch type
         title(ax,'Trumpet');
         xlabel(ax, 'Time (s)');
         soundsc(trumpet, fs_trumpet);
-
     case "Piano"
         [piano,fs_piano]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/piano-C4.wav');
         t_piano = (0:1/fs_piano:(length(piano)-1)/fs_piano);
