@@ -26,15 +26,16 @@ dd.Layout.Column = 2;
 ax.Layout.Row = [2 3];
 ax.Layout.Column = [1 3];
 % Position checkbox
-cbx.Layout.Row = 1
-cbx.Layout.Column = 3
+cbx.Layout.Row = 1;
+cbx.Layout.Column = 3;
 
 % Configure UI component appearance
-cbx.Text = "Play Sound"
+cbx.Text = "Play Sound";
 lbl.Text = "Choose Instrument:";
 dd.Items = ["Trumpet" "Piano" "Flute" "Violin"];
 dd.Value = "Trumpet";
-[trumpet,fs_trumpet] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/trumpet-C4.wav');
+%[trumpet,fs_trumpet] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/trumpet-C4.wav');
+[trumpet,fs_trumpet] = audioread('/Users/Jake/BME271/Final Project/BME271Project/trumpet-C4.wav');
 t_trumpet = (0:1/fs_trumpet:(length(trumpet)-1)/fs_trumpet);
 plot(ax,t_trumpet, trumpet);
 title(ax,'Trumpet');
@@ -42,7 +43,7 @@ xlabel(ax, 'Time (s)');
 % Assign callback function to drop-down
 dd.ValueChangedFcn = {@changeInstrument,ax};
 % Assign callback function to checkbox
-cbx.ButtonPushedFcn = {@playSound}
+cbx.ButtonPushedFcn = {@playSound};
 
 end
 
