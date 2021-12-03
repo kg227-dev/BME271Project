@@ -36,6 +36,7 @@ y = [0 1 samp samp 0];
 xq = 0:dt:3.2;
 vq = interp1(x, y, xq);
 
+
 %ttrumpet = [0:1/fs_trumpet:length(trumpet)/fs_trumpet];
 ttrumpet = (0:1/fs_trumpet:(length(trumpet)-1)/fs_trumpet);
 %tviolin = [0:1/fs_violin:length(violin)/fs_violin];
@@ -44,6 +45,12 @@ tviolin = (0:1/fs_violin:(length(violin)-1)/fs_violin);
 tpiano = (0:1/fs_piano:(length(piano)-1)/fs_piano);
 %tflute = [0:1/fs_flute:length(flute)/fs_flute];
 tflute = (0:1/fs_flute:(length(flute)-1)/fs_flute);
+
+
+ttrumpet = [0:1/fs_trumpet:(length(trumpet) - 1)/fs_trumpet];
+tviolin = [0:1/fs_violin:(length(violin) - 1)/fs_violin];
+tpiano = [0:1/fs_piano:(length(piano)-1)/fs_piano];
+tflute = [0:1/fs_flute:(length(flute) - 1)/fs_flute];
 
 
 % Amplitudes of harmonics
@@ -64,7 +71,7 @@ test = h1 * cos(2*pi*f0*t) + h2 * cos(4*pi*f0*6) + h3 * cos(6*pi*f0*t) + ...
     h7 * cos(14*pi*f0*t) + h8 * cos(16*pi*f0*t);
 
 % Play test sound with envelope
-soundsc(test .* vq, fs)
+%soundsc(test .* vq, fs)
 
 %% Plot Envelope
 subplot(2,2,1)
@@ -74,4 +81,4 @@ plot(xq, vq)
 ylim([0 1.2])
 xlim([0 3.2])
 subplot(2,2,3)
-plot(trumpet.*vq)
+plot(x,y)
