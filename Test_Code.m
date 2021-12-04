@@ -3,17 +3,27 @@
 % Sometimes this breaks when adjusting variables, but 
 % works again without changing anything on second run?
 % Adjustable values to be convolved with sounds
-
+%% Clear everything
+clear all; clf; close all;
 %% Load Instruments
 
-[trumpet,fs_trumpet] = audioread('/Users/Jake/BME271/Final Project/BME271Project/trumpet-C4.wav');
-%[trumpet,fs_trumpet] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/trumpet-C4.wav');
-[violin,fs_violin] = audioread('/Users/Jake/BME271/Final Project/BME271Project/violin-C4.wav');
-%[violin,fs_violin] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/violin-C4.wav');
-[piano,fs_piano] = audioread('/Users/Jake/BME271/Final Project/BME271Project/piano-C4.wav');
-%[piano,fs_piano] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/piano-C4.wav');
-[flute,fs_flute] = audioread('/Users/Jake/BME271/Final Project/BME271Project/flute-C4.wav');
-%[flute,fs_flute] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/flute-C4.wav');
+%[trumpet,fs_trumpet] = audioread('/Users/Jake/BME271/Final Project/BME271Project/trumpet-C4.wav');
+[trumpet,fs_trumpet] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/trumpet-C4.wav');
+%[violin,fs_violin] = audioread('/Users/Jake/BME271/Final Project/BME271Project/violin-C4.wav');
+[violin,fs_violin] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/violin-C4.wav');
+%[piano,fs_piano] = audioread('/Users/Jake/BME271/Final Project/BME271Project/piano-C4.wav');
+[piano,fs_piano] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/piano-C4.wav');
+%[flute,fs_flute] = audioread('/Users/Jake/BME271/Final Project/BME271Project/flute-C4.wav');
+[flute,fs_flute] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/flute-C4.wav');
+
+%% Time Vectors
+ttrumpet = (0:1/fs_trumpet:(length(trumpet)-1)/fs_trumpet);
+tpiano = (0:1/fs_piano:(length(piano)-1)/fs_piano);
+tviolin = (0:1/fs_violin:(length(violin)-1)/fs_violin);
+tflute = (0:1/fs_flute:(length(flute)-1)/fs_flute);
+
+
+
 
 %% Envelope Params
 % a + d + r + s < length of sound, ms
@@ -85,7 +95,6 @@ plot(xq, vq)
 ylim([0 1.2])
 xlim([0 3.2])
 
-figure(2)
 plot(transpose(ttrumpet), trumpet)
 
 figure(3)

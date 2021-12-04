@@ -3,7 +3,8 @@
 % Sometimes this breaks when adjusting variables, but 
 % works again without changing anything on second run?
 % Adjustable values to be convolved with sounds
-
+%% Clear everything
+clear all; clf; close all;
 %% Read Audio
 
 %[trumpet,fs_trumpet] = audioread('/Users/Jake/BME271/Final Project/BME271Project/trumpet-C4.wav');
