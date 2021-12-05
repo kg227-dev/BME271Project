@@ -1,8 +1,6 @@
 % Code for envelope
-% a, d, and r can be [0 1000], s is [0 1]
-% Sometimes this breaks when adjusting variables, but 
-% works again without changing anything on second run?
-% Adjustable values to be convolved with sounds
+% a, d, s, and r can be [0 1000], samp is [0 1]
+% Adjustable values to be dot multiplied with sounds (adsr envelope)
 
 %% Load Instruments
 
@@ -14,32 +12,6 @@
 %[piano,fs_piano] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/piano-C4.wav');
 [flute,fs_flute] = audioread('/Users/Jake/BME271/Final Project/BME271Project/flute-C4.wav');
 %[flute,fs_flute] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/flute-C4.wav');
-
-%% Construct New Sound
-
-% Amplitudes of harmonics
-h1 = input('First Harmonic: ');
-h2 = input('Second Harmonic: ');
-h3 = input('Third Harmonic: ');
-h4 = input('Fourth Harmonic: ');
-h5 = input('Fifth Harmonic: ');
-h6 = input('Sixth Harmonic: ');
-h7 = input('Seventh Harmonic: ');
-h8 = input('Eighth Harmonic: ');
-bool = input("Play Sound? If yes, enter 'y': ", 's');
-
-% f0 for C4
-f0 = 261.6;
-
-% Test sound
-test = h1 * cos(2*pi*f0*t) + h2 * cos(4*pi*f0*t) + h3 * cos(6*pi*f0*t) + ...
-    h4 * cos(8*pi*f0*t) + h5 * cos(10*pi*f0*t) + h6 * cos(12*pi*f0*t) + ...
-    h7 * cos(14*pi*f0*t) + h8 * cos(16*pi*f0*t);
-
-norm_test = test / max(test);
-test_ft = fftshift(fft(test));
-norm_test_ft = abs(test_ft) / max(abs(test_ft));
-ft = linspace(-fs/2, fs/2, length(test_ft));
 
 %% Envelope Params
 % a + d + r + s < length of sound, ms (2600)
@@ -70,6 +42,37 @@ violin_clip = transpose(violin(1:length(vq)));
 piano_clip = transpose(piano(1:length(vq)));
 flute_clip = transpose(flute(1:length(vq)));
 
+
+%% Construct New Sound
+
+% Amplitudes of harmonics
+h1 = input('First Harmonic: ');
+h2 = input('Second Harmonic: ');
+h3 = input('Third Harmonic: ');
+h4 = input('Fourth Harmonic: ');
+h5 = input('Fifth Harmonic: ');
+h6 = input('Sixth Harmonic: ');
+h7 = input('Seventh Harmonic: ');
+h8 = input('Eighth Harmonic: ');
+bool = input("Play Sound? If yes, enter 'y': ", 's');
+
+% f0 for C4
+f0 = 261.6;
+
+% Test sound
+test = h1 * cos(2*pi*f0*t) + h2 * cos(4*pi*f0*t) + h3 * cos(6*pi*f0*t) + ...
+    h4 * cos(8*pi*f0*t) + h5 * cos(10*pi*f0*t) + h6 * cos(12*pi*f0*t) + ...
+    h7 * cos(14*pi*f0*t) + h8 * cos(16*pi*f0*t);
+
+norm_test = test / max(test);
+test_ft = fftshift(fft(test));
+norm_test_ft = abs(test_ft) / max(abs(test_ft));
+ft = linspace(-fs/2, fs/2, length(test_ft));
+
+%fm = cos(2*pi*f0*t + 7*cos(4*pi*f0*t));
+%soundsc(fm.^9, fs)
+distorted = fuzz(test, fs);
+soundsc(distorted, fs)
 %% Play Sound?
 
 % Play test sound with envelope
