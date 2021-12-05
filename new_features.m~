@@ -15,28 +15,21 @@ freqs = [130.81 138.59 146.83 155.56 164.81 174.61 185.00 196.00 ...
 
 % Amplitudes of harmonics
 h1 = 1;
-h2 = 0.3;
-h3 = 0.1;
-h4 = 0.1;
-h5 = 0;
+h2 = 0.7;
+h3 = 1.25;
+h4 = 0.15;
+h5 = 0.15;
 h6 = 0.1;
-h7 = 0.05;
-h8 = 0.05;
+h7 = 0;
+h8 = 0.02;
 bool = input("Play Sound? If yes, enter 'y': ", 's');
 
 for idx = 1:length(keys)
     notes_in.(keys{idx}) = build_sound(freqs(idx), t, h1, h2, h3, h4, h5, h6, h7, h8);
 end
 
-% f0 for C4
-f0 = 261.6;
-
-% Test sound(s)
-c1_in = build_sound(32.70, t, h1, h2, h3, h4, h5, h6, h7, h8);
-c3_in = build_sound(130.81, t, h1, h2, h3, h4, h5, h6, h7, h8);
-c4_in = build_sound(f0, t, h1, h2, h3, h4, h5, h6, h7, h8);
-eb4_in = build_sound(311.13, t, h1, h2, h3, h4, h5, h6, h7, h8);
-g4_in = build_sound(392, t, h1, h2, h3, h4, h5, h6, h7, h8);
+% Save one note for plotting purposes
+c4_in = notes_in.C4;
 
 % Define Variables for Plotting Sound in Frequency Domain
 norm_test = c4_in / max(c4_in);
@@ -46,9 +39,9 @@ ft = linspace(-fs/2, fs/2, length(test_ft));
 
 %% Envelope Params
 a = 100;
-d = 300;
-s = 2500;
-r = 50;
+d = 50;
+s = 200;
+r = 1000;
 samp = 0.8;
 
 % Make the envelope
@@ -74,23 +67,30 @@ dry = 0;
 
 % Display Distortion (alone) Graphically
 dstort = apply_distort(c4_in, gain, dry);
+dstort 
 
 %% Mega Function
 
-c1 = add_effects(t, c1_in, 'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, 'hz', hz);
-c3 = add_effects(t, c3_in, 'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, 'hz', hz);
-c4 = add_effects(t, c4_in, 'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, 'hz', hz);
-eb4 = add_effects(t, eb4_in, 'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, 'hz', hz);
-g4 = add_effects(t, g4_in, 'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, 'hz', hz);
+% Full add-ons commented out for easy access
+% notes_out.(keys{idx}) = add_effects(t, notes_in.(keys{idx}), ...
+%         'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, ...
+%         'hz', hz);
+
+
+for idx = 1:length(keys)
+    notes_out.(keys{idx}) = add_effects(t, notes_in.(keys{idx}), ...
+        'adsr', [a d s r samp], 'gain', gain, 'dry', dry);
+end
+
+% Again, save a note for plotting
+c4 = notes_out.C4;
 big_test_norm = c4 / max(c4);
 
 %% Play Sound?
 
 % Play test sound with envelope
 if bool == 'y'
-    %soundsc(c4+eb4+g4, fs)
-    %soundsc(c1, fs)
-    soundsc(notes_in.G4 + notes_in.Bb4, 
+    soundsc(notes_out.D3 + notes_out.Gb3 + notes_out.A3 + notes_out.Db4, fs)
 end
 
 %% Plot Envelope

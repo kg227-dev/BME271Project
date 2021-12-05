@@ -15,14 +15,13 @@ freqs = [130.81 138.59 146.83 155.56 164.81 174.61 185.00 196.00 ...
 
 % Amplitudes of harmonics
 h1 = 1;
-h2 = 0.3;
-h3 = 0.1;
-h4 = 0.1;
-h5 = 0;
+h2 = 0.7;
+h3 = 1.25;
+h4 = 0.15;
+h5 = 0.15;
 h6 = 0.1;
-h7 = 0.05;
-h8 = 0.05;
-bool = input("Play Sound? If yes, enter 'y': ", 's');
+h7 = 0;
+h8 = 0.02;
 
 for idx = 1:length(keys)
     notes_in.(keys{idx}) = build_sound(freqs(idx), t, h1, h2, h3, h4, h5, h6, h7, h8);
@@ -39,9 +38,9 @@ ft = linspace(-fs/2, fs/2, length(test_ft));
 
 %% Envelope Params
 a = 100;
-d = 300;
-s = 2500;
-r = 50;
+d = 50;
+s = 200;
+r = 1000;
 samp = 0.8;
 
 % Make the envelope
@@ -55,7 +54,7 @@ vq = fillmissing(interp1(x, y, xq), 'constant', 0);
 env = c4_in.*vq;
 env = env / max(env);
 %% LFO
-hz = 4;
+hz = 12;
 amp = 0.25;
 
 % Display LFO (alone) Graphically
@@ -67,22 +66,30 @@ dry = 0;
 
 % Display Distortion (alone) Graphically
 dstort = apply_distort(c4_in, gain, dry);
+dstort = dstort / max(abs(dstort));
 
 %% Mega Function
 
+% Full add-ons commented out for easy access
+% notes_out.(keys{idx}) = add_effects(t, notes_in.(keys{idx}), ...
+%         'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, ...
+%         'hz', hz);
+
+
 for idx = 1:length(keys)
     notes_out.(keys{idx}) = add_effects(t, notes_in.(keys{idx}), ...
-        'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, ...
-        'hz', hz);
+         'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, ...
+         'hz', hz);
 end
 
 % Again, save a note for plotting
 c4 = notes_out.C4;
-big_test_norm = c4 / max(c4);
+big_test_norm = c4 / max(abs(c4));
 
 %% Play Sound?
 
-% Play test sound with envelope
+bool = input("Play Sound? If yes, enter 'y': ", 's');
+
 if bool == 'y'
     soundsc(notes_out.D3 + notes_out.Gb3 + notes_out.A3 + notes_out.Db4, fs)
 end
@@ -100,6 +107,7 @@ ylabel('Amplitude, Normalized')
 subplot(5,2,2)
 plot(ft, norm_test_ft)
 xlim([0 2200])
+ylim([0 1.2])
 title('{\it RAW} Sound, Frequency Domain')
 xlabel('Frequency (Hz)')
 ylabel('Amplitude, Normalized')
@@ -114,7 +122,7 @@ ylabel('Amplitude, Normalized')
 
 subplot(5, 2, 4)
 plot(t, big_test_norm, 'r-')
-title('Sound + {\it LAID-BACK} LFO')
+title('Sound + {\it ALL EFFECTS}')
 xlabel('Time (s)')
 ylabel('Amplitude, Normalized')
 
