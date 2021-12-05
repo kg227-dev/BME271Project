@@ -14,7 +14,7 @@ gl.ColumnWidth = {'fit','1x'};
 %% Create UI components
 lbl = uilabel(gl);
 dd = uidropdown(gl);
-ax = uiaxes(gl );
+ax = uiaxes(gl);
 ax2 = uiaxes(gl);
 
 %% Position label
