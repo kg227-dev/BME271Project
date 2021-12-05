@@ -1,6 +1,10 @@
 function [w] = add_effects(t, x, env, distort, lfo)
-%ADD_EFFECTS Summary of this function goes here
-%   Detailed explanation goes here
+% Summary
+%   t = input time vector
+%   x = input signal corresponding to input time vector
+%   env = envelope arguments, optional (see apply_adsr())
+%   distort = distort arguments, optional (see apply_distort())
+%   lfo = lfo arguments, optional (see apply_lfo())
     arguments
         t (1, :) double
         x (1, :) double
@@ -31,6 +35,7 @@ function [w] = add_effects(t, x, env, distort, lfo)
     end
 end
 
+% Check to ensure valid inputs, throwing exceptions as necessary
 function validate_adsr(x)
     if ismember(0, x(1:4)) && sum(x(1:4)) > 0
         eid = 'adsr:zero';
