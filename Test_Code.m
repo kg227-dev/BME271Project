@@ -15,35 +15,6 @@
 [flute,fs_flute] = audioread('/Users/Jake/BME271/Final Project/BME271Project/flute-C4.wav');
 %[flute,fs_flute] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/flute-C4.wav');
 
-%% Envelope Params
-% a + d + r + s < length of sound, ms
-% samp < 1
-% Params to adjust 
-a = 100;
-d = 100;
-s = 200;
-r = 2000;
-samp = 0.8;
-
-fs = 11025;
-dt = 1/fs;
-
-t = 0:dt:2.6;
-td = dt:dt:d/1000;
-tr = dt:dt:r/1000;
-
-% Make the envelope
-% Plot xq, vq to visualize this
-x = [0 a/1000 (a+d)/1000 (a+d+s)/1000 (a+d+r+s)/1000];
-y = [0 1 samp samp 0];
-xq = 0:dt:2.6;
-vq = interp1(x, y, xq);
-
-trumpet_clip = transpose(trumpet(1:length(vq)));
-violin_clip = transpose(violin(1:length(vq)));
-piano_clip = transpose(piano(1:length(vq)));
-flute_clip = transpose(flute(1:length(vq)));
-
 %% Construct New Sound
 
 % Amplitudes of harmonics
@@ -65,9 +36,41 @@ test = h1 * cos(2*pi*f0*t) + h2 * cos(4*pi*f0*t) + h3 * cos(6*pi*f0*t) + ...
     h4 * cos(8*pi*f0*t) + h5 * cos(10*pi*f0*t) + h6 * cos(12*pi*f0*t) + ...
     h7 * cos(14*pi*f0*t) + h8 * cos(16*pi*f0*t);
 
+norm_test = test / max(test);
 test_ft = fftshift(fft(test));
-norm_test_ft = test_ft / max(test_ft);
+norm_test_ft = abs(test_ft) / max(abs(test_ft));
 ft = linspace(-fs/2, fs/2, length(test_ft));
+
+%% Envelope Params
+% a + d + r + s < length of sound, ms (2600)
+% samp < 1
+% Params to adjust 
+a = input('Attack time, ms: ');
+d = input('Decay time, ms: ');
+s = input('Sustain time, ms: ');
+r = input('Release time, ms: ');
+samp = input('Sustain Amplitude (between 0 and 1): ');
+
+fs = 11025;
+dt = 1/fs;
+
+t = 0:dt:2.6;
+td = dt:dt:d/1000;
+tr = dt:dt:r/1000;
+
+% Make the envelope
+% Plot xq, vq to visualize this
+x = [0 a/1000 (a+d)/1000 (a+d+s)/1000 (a+d+r+s)/1000];
+y = [0 1 samp samp 0];
+xq = 0:dt:2.6;
+vq = interp1(x, y, xq);
+
+trumpet_clip = transpose(trumpet(1:length(vq)));
+violin_clip = transpose(violin(1:length(vq)));
+piano_clip = transpose(piano(1:length(vq)));
+flute_clip = transpose(flute(1:length(vq)));
+
+%% Play Sound?
 
 % Play test sound with envelope
 if bool == 'y'
@@ -78,25 +81,44 @@ end
 %soundsc(piano_clip, fs)
 
 %% Plot Envelope
-subplot(2,2,1)
-plot(tpiano, piano)
-subplot(2,2,2)
-plot(xq, vq)
-ylim([0 1.2])
-xlim([0 3.2])
+figure(1)
+sgtitle('Gnarly Sound Stats', 'FontWeight', 'bold')
+subplot(3,2,1)
+plot(t, norm_test)
+xlim([0 2.6])
+title('{\it RAW} Sound, Time Domain')
+xlabel('Time (s)')
+ylabel('Amplitude, Normalized')
 
-figure(2)
-plot(transpose(ttrumpet), trumpet)
-
-figure(3)
-plot(ft, abs(test_ft))
+subplot(3,2,2)
+plot(ft, norm_test_ft)
 xlim([0 2200])
-subplot(2,2,3)
-plot(x,y)
+title('{\it RAW} Sound, Frequency Domain')
+xlabel('Frequency (Hz)')
+ylabel('Amplitude, Normalized')
 
-figure(4)
-plot(t, test)
+subplot(3, 2, 3)
+plot(xq, vq)
+xlim([0 2.6])
+ylim([0 1.05])
+title('{\it NASTY} Envelope')
+xlabel('Time (s)')
+ylabel('Amplitude, Normalized')
+
+subplot(3, 2, 4)
+plot(t, norm_test)
 hold on
-plot(t, test.*vq)
+plot(t, norm_test .* vq)
 hold off
+xlim([0 2.6])
+title('{\it RAW} Sound with {\it NASTY} envelope') 
+xlabel('Time (s)')
+ylabel('Amplitude, Normalized')
+
+subplot(3, 2, [5, 6])
+plot(t, norm_test)
+xlim([0 200/fs])
+title('{\it RAW} Sound, Zoomed In!')
+xlabel('Time (s)')
+ylabel('Amplitude, Normalized')
 
