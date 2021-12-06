@@ -1,6 +1,5 @@
 clear
 %% Construct New Sound Library
-
 fs = 44100;
 dt = 1/fs;
 t = 0:dt:3;
@@ -57,14 +56,7 @@ ft = linspace(-fs/2, fs/2, length(test_ft));
 % r = 200;
 % samp = 0.4;
 
-% % Ex. 2
-% a = 500;
-% d = 500;
-% s = 500;
-% r = 200;
-% samp = 0.4;
-
-% Ex. 3
+% Ex. 2
 a = 1000;
 d = 1000;
 s = 500;
@@ -87,14 +79,10 @@ env = env / max(env);
 % % Ex. 1
 % hz = 1.5;
 % amp = 0.5;
-% 
-% % Ex. 2
-% hz = 8;
-% amp = 0.5;
 
-% Ex. 3
-hz = 1.5;
-amp = 1;
+% Ex. 2
+hz = 8;
+amp = 0.5;
 
 % Display LFO (alone) Graphically
 lfo_test = apply_lfo(t, c4_in, amp, hz);
@@ -102,14 +90,10 @@ lfo_test = apply_lfo(t, c4_in, amp, hz);
 %% Distortion
 
 % % Ex. 1
-% gain = 0.2;
-% dry = 0.5;
-
-% % Ex. 2
 % gain = 2;
 % dry = 0.5;
 
-% Ex. 3
+% Ex. 2
 gain = 0.2;
 dry = 0;
 
@@ -136,13 +120,13 @@ dstort = dstort / max(abs(dstort));
 %     notes_out.(keys{idx}) = add_effects(t, notes_in.(keys{idx}), ...
 %          'gain', gain, 'dry', dry);
 % end
-% 
-% All
-% for idx = 1:length(keys)
-%     notes_out.(keys{idx}) = add_effects(t, notes_in.(keys{idx}), ...
-%          'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, ...
-%          'hz', hz);
-% end
+% %
+%All
+for idx = 1:length(keys)
+    notes_out.(keys{idx}) = add_effects(t, notes_in.(keys{idx}), ...
+         'adsr', [a d s r samp], 'gain', gain, 'dry', dry, 'amp', amp, ...
+         'hz', hz);
+end
 
 % Again, save a note for plotting
 c4 = notes_out.C4;
