@@ -38,8 +38,8 @@ dd.Items = ["Trumpet" "Piano" "Flute" "Violin"];
 dd.Value = "Trumpet";
 
 %% Read in Audio
-[trumpet,fs_trumpet] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/trumpet-C4.wav');
-%[trumpet,fs_trumpet] = audioread('/Users/Jake/BME271/Final Project/BME271Project/trumpet-C4.wav');
+%[trumpet,fs_trumpet] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/trumpet-C4.wav');
+[trumpet,fs_trumpet] = audioread('/Users/Jake/BME271/Final Project/BME271Project/trumpet-C4.wav');
 t_trumpet = (0:1/fs_trumpet:(length(trumpet)-1)/fs_trumpet);
 
 %% Plot Time Signal
@@ -70,7 +70,8 @@ switch type
     
 %% Trumpet Instrument
     case "Trumpet"
-        [trumpet,fs_trumpet] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/trumpet-C4.wav');
+        %[trumpet,fs_trumpet] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/trumpet-C4.wav');
+        [trumpet,fs_trumpet] = audioread('/Users/Jake/BME271/Final Project/BME271Project/trumpet-C4.wav');
         t_trumpet = (0:1/fs_trumpet:(length(trumpet)-1)/fs_trumpet);
         soundsc(trumpet, fs_trumpet)
         plot(ax,t_trumpet,trumpet);
@@ -84,7 +85,8 @@ switch type
         xlabel(ax2, 'Frequency (Hz)');     
 %% Piano Instrument
     case "Piano"
-        [piano,fs_piano]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/piano-C4.wav');
+        %[piano,fs_piano]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/piano-C4.wav');
+        [piano,fs_piano] = audioread('/Users/Jake/BME271/Final Project/BME271Project/piano-C4.wav');
         t_piano = (0:1/fs_piano:(length(piano)-1)/fs_piano);
         soundsc(piano, fs_piano)
         plot(ax,t_piano,piano);
@@ -98,7 +100,8 @@ switch type
         xlabel(ax2, 'Frequency (Hz)');
 %% Flute Instrument
     case "Flute"
-        [flute,fs_flute]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/flute-C4.wav');
+        %[flute,fs_flute]=audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/flute-C4.wav');
+        [flute,fs_flute] = audioread('/Users/Jake/BME271/Final Project/BME271Project/flute-C4.wav');
         t_flute = (0:1/fs_flute:(length(flute)-1)/fs_flute);
         soundsc(flute, fs_flute)
         plot(ax,t_flute,flute);
@@ -112,7 +115,8 @@ switch type
         xlabel(ax2, 'Frequency (Hz)');
 %% Violin Instrument    
     case "Violin"
-        [violin, fs_violin] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/violin-C4.wav');
+        %[violin, fs_violin] = audioread('/Users/kushgulati/Box Sync/Junior Year/BME271/BME271Project/violin-C4.wav');
+        [violin,fs_violin] = audioread('/Users/Jake/BME271/Final Project/BME271Project/violin-C4.wav');
         t_violin = (0:1/fs_violin:(length(violin)-1)/fs_violin);
         soundsc(violin, fs_violin)
         plot(ax,t_violin,violin);

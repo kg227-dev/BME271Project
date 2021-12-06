@@ -8,7 +8,7 @@ function [w] = add_effects(t, x, env, distort, lfo)
     arguments
         t (1, :) double
         x (1, :) double
-        env.adsr (1, 5) double {validate_adsr(env.adsr)} = [0 0 0 0 0]
+        env.adsr (1, 5) double {validate_adsr(env.adsr)} = [0 0 0 0 0.5]
         distort.gain (1, 1) double = 0
         distort.dry (1, 1) double {validate_dry(distort.dry)} = 0.5
         lfo.amp (1, 1) double = 0
